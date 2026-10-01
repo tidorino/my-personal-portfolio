@@ -88,7 +88,7 @@ type FeaturedProject = {
 
 const FEATURED: FeaturedProject[] = [
   {
-    title: "Ahead and Up Hub",
+    title: "Ahead and Up",
     live: "https://ahead-and-up-hub.vercel.app/",
     status: "Project in progress",
     description:
@@ -555,14 +555,6 @@ function Footer() {
       >
         Design inspired by Brittany Chiang
       </a>
-      <div className="mt-2 flex items-center justify-center gap-4 font-mono text-xs text-sand">
-        <span className="flex items-center gap-1">
-          <Star size={12} /> 0
-        </span>
-        <span className="flex items-center gap-1">
-          <GitFork size={12} /> 0
-        </span>
-      </div>
     </footer>
   );
 }
