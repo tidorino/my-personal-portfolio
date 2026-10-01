@@ -58,20 +58,21 @@ const EXPERIENCE = [
   {
     company: "Freelance",
     role: "Software Developer",
-    period: "2024 — Present",
+    period: "Jun 2023  — Present",
     points: [
-      "Designing and building web applications, from trading tools to full-stack platforms.",
-      "Working across Python/Django backends and modern JavaScript frontends.",
-      "Maintaining open-source projects and contributing on GitHub.",
+      "Built full-stack features for a multi-service trading platform, implementing design patterns ( LLM resolution, state management) to maintain code quality and system reliability.",
+      "Integrated with external trading APIs (Binance, Kraken) and managed complex JSON-based data flows between microservices.",
+      "Strengthened technical expertise through collaborative remote development on live trading systems, focusing on debugging and edge case handling.",
     ],
   },
   {
-    company: "Personal Projects",
-    role: "Open Source Builder",
-    period: "2022 — 2024",
+    company: "Dynamic Pricing AI",
+    role: "Data Workflow Engineer",
+    period: "Jan 2025 – Jul 2026",
     points: [
-      "Built a collection of side projects exploring backend architecture, APIs and web frameworks.",
-      "Learned by doing: testing, deployment and shipping real features end to end.",
+      "Designed and maintained data workflows supporting an AI-driven dynamic pricing platform used by e-commerce clients.",
+      "Worked with Python and PostgreSQL to process, validate, and structure high-volume pricing and product data for downstream pricing models, with a focus on data reliability and handling edge cases gracefully.",
+      "Collaborated with engineering team members using Git-based version control and code review to improve workflow reliability and data quality in a fast-iterating product environment.",
     ],
   },
 ];
@@ -268,9 +269,8 @@ function Hero() {
         I build things for the web.
       </h2>
       <p className="mt-6 max-w-xl text-lg text-sand">
-        I'm a software developer focused on crafting clean, performant web
-        experiences. Most of my work lives on GitHub — from full-stack apps to
-        open-source tools and experiments.
+        I'm a software developer who enjoys solving problems
+         and turning ideas into working software.
       </p>
       <div className="mt-10">
         <a
@@ -296,8 +296,7 @@ function About() {
         <div className="space-y-4 text-sand">
           <p>
             Hello! I'm Teodora, a developer who enjoys turning ideas into
-            working software. That curiosity turned into building things
-            — you'll find most of them on my GitHub.
+            working software.
           </p>
           <p>
             Lately I've been focused on Python backend development and AI-driven systems: building data
