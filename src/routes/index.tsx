@@ -10,7 +10,16 @@ import {
   GitFork,
   Menu,
   X,
+  ChevronLeft,
+  ChevronRight,
+  Images,
 } from "lucide-react";
+
+import { Button } from "@/components/ui/button";
+import { Dialog, DialogContent, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import djangoHome from "@/assets/django-home.png.asset.json";
+import djangoCourses from "@/assets/django-courses.png.asset.json";
+import djangoSignedIn from "@/assets/django-signed-in.png.asset.json";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -84,6 +93,7 @@ type FeaturedProject = {
   status?: string;
   description: string;
   tech: string[];
+  screenshots?: { src: string; label: string }[];
 };
 
 const FEATURED: FeaturedProject[] = [
@@ -115,6 +125,11 @@ const FEATURED: FeaturedProject[] = [
     description:
       "A Django-based LMS platform for instructors to teach and students to learn online — course management, lessons and enrollments end to end.",
     tech: ["Django", "Python", "PostgreSQL"],
+    screenshots: [
+      { src: djangoHome.url, label: "Home page" },
+      { src: djangoCourses.url, label: "Course catalog" },
+      { src: djangoSignedIn.url, label: "Course catalog after signing in" },
+    ],
   },
   {
     title: "AI Agents & Workflows",
@@ -370,6 +385,92 @@ function Experience() {
   );
 }
 
+function ScreenshotGallery({ screenshots }: { screenshots: NonNullable<FeaturedProject["screenshots"]> }) {
+  const [open, setOpen] = useState(false);
+  const [active, setActive] = useState(0);
+  const current = screenshots[active] ?? screenshots[0];
+
+  useEffect(() => {
+    if (!open) return;
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "ArrowRight") setActive((index) => (index + 1) % screenshots.length);
+      if (event.key === "ArrowLeft") setActive((index) => (index - 1 + screenshots.length) % screenshots.length);
+    };
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [open, screenshots.length]);
+
+  if (!current) return null;
+
+  return (
+    <Dialog open={open} onOpenChange={setOpen}>
+      <DialogTrigger asChild>
+        <Button
+          variant="ghost"
+          className="group relative h-full w-full overflow-hidden rounded bg-dune-light p-0 hover:bg-dune-light focus-visible:ring-2 focus-visible:ring-gold"
+          aria-label="View django-courses-app screenshots"
+        >
+          <img
+            src={screenshots[0]?.src}
+            alt="django-courses-app home page preview"
+            className="h-full w-full object-cover object-top transition-transform duration-300 group-hover:scale-[1.03] motion-reduce:transition-none"
+          />
+          <span className="absolute bottom-3 left-3 flex items-center gap-2 rounded bg-dune px-3 py-2 font-mono text-xs text-sand-lightest shadow-lg">
+            <Images size={16} /> View screenshots
+          </span>
+        </Button>
+      </DialogTrigger>
+      <DialogContent className="flex max-h-[95dvh] w-[min(96vw,1100px)] max-w-none flex-col gap-3 overflow-hidden border-dune-lightest bg-dune p-3 text-left sm:rounded sm:p-5 [&>button]:z-10 [&>button]:rounded [&>button]:bg-dune-light [&>button]:p-2 [&>button]:text-sand-lightest">
+        <DialogTitle className="pr-10 font-mono text-sm text-sand-lightest sm:text-base">
+          django-courses-app <span className="text-sand">— {current.label}</span>
+        </DialogTitle>
+        <div className="relative flex min-h-0 flex-1 items-center justify-center overflow-hidden bg-dune-light">
+          <img
+            src={current.src}
+            alt={`django-courses-app: ${current.label}`}
+            className="max-h-[70dvh] w-full object-contain"
+          />
+          <Button
+            variant="secondary"
+            size="icon"
+            className="absolute left-2 top-1/2 z-10 -translate-y-1/2 border border-dune-lightest bg-dune text-gold hover:bg-dune-light"
+            onClick={() => setActive((index) => (index - 1 + screenshots.length) % screenshots.length)}
+            aria-label="Previous screenshot"
+            title="Previous screenshot"
+          >
+            <ChevronLeft />
+          </Button>
+          <Button
+            variant="secondary"
+            size="icon"
+            className="absolute right-2 top-1/2 z-10 -translate-y-1/2 border border-dune-lightest bg-dune text-gold hover:bg-dune-light"
+            onClick={() => setActive((index) => (index + 1) % screenshots.length)}
+            aria-label="Next screenshot"
+            title="Next screenshot"
+          >
+            <ChevronRight />
+          </Button>
+        </div>
+        <div className="flex items-center justify-center gap-2" aria-label="Choose screenshot">
+          {screenshots.map((screenshot, index) => (
+            <Button
+              key={screenshot.src}
+              variant="ghost"
+              size="icon"
+              className={`h-2 w-2 rounded-full p-0 hover:bg-gold ${index === active ? "bg-gold" : "bg-sand"}`}
+              onClick={() => setActive(index)}
+              aria-label={`Show ${screenshot.label}`}
+              aria-current={index === active ? "true" : undefined}
+              title={screenshot.label}
+            />
+          ))}
+          <span className="ml-2 font-mono text-xs text-sand">{active + 1} / {screenshots.length}</span>
+        </div>
+      </DialogContent>
+    </Dialog>
+  );
+}
+
 function Work() {
   return (
     <section id="work" className="mx-auto max-w-5xl px-6 py-24 md:px-10">
@@ -393,9 +494,13 @@ function Work() {
                   : "md:col-span-7"
               }`}
             >
-              <div className="flex h-full items-center justify-center font-mono text-4xl text-gold/40">
-                {String(i + 1).padStart(2, "0")}
-              </div>
+              {p.screenshots ? (
+                <ScreenshotGallery screenshots={p.screenshots} />
+              ) : (
+                <div className="flex h-full items-center justify-center font-mono text-4xl text-gold/40">
+                  {String(i + 1).padStart(2, "0")}
+                </div>
+              )}
             </div>
             <div
               className={`md:absolute md:top-1/2 md:-translate-y-1/2 ${
@@ -438,15 +543,17 @@ function Work() {
                     <Github size={20} />
                   </a>
                 )}
-                <a
-                  href={p.live ?? p.repo}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="text-sand-lightest transition-colors hover:text-gold"
-                  aria-label="Live site"
-                >
-                  <ExternalLink size={20} />
-                </a>
+                {p.live && (
+                  <a
+                    href={p.live}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="text-sand-lightest transition-colors hover:text-gold"
+                    aria-label="Live site"
+                  >
+                    <ExternalLink size={20} />
+                  </a>
+                )}
               </div>
             </div>
           </div>
