@@ -61,6 +61,7 @@ const SKILLS = [
   "HTML & CSS",
 ];
 
+
 const EXPERIENCE = [
   {
     company: "Freelance",
