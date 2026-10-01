@@ -77,7 +77,31 @@ const EXPERIENCE = [
   },
 ];
 
-const FEATURED = [
+type FeaturedProject = {
+  title: string;
+  repo?: string;
+  live?: string;
+  status?: string;
+  description: string;
+  tech: string[];
+};
+
+const FEATURED: FeaturedProject[] = [
+  {
+    title: "Ahead and Up Hub",
+    live: "https://ahead-and-up-hub.vercel.app/",
+    status: "Project in progress",
+    description:
+      "A bilingual (Bulgarian/English) website for a non-profit promoting accessible active lifestyles through climbing, sport and youth work. It features a children's climbing league with a searchable, filterable leaderboard, multi-step registration, a live event countdown, and donation, volunteer and contact forms backed by Supabase. Built with React, TypeScript, TanStack Start, Tailwind CSS and shadcn/ui, and deployed on Vercel.",
+    tech: [
+      "React",
+      "TypeScript",
+      "TanStack Start",
+      "Tailwind CSS",
+      "shadcn/ui",
+      "Supabase",
+    ],
+  },
   {
     title: "d-trader",
     repo: "https://github.com/tidorino/-d-trader-portfolio",
@@ -110,37 +134,10 @@ const OTHER_PROJECTS = [
     tech: ["Python", "Django"],
   },
   {
-    title: "Petstagram",
-    repoSlug: "Petstagram",
-    description:
-      "A social web app developed during a Python web frameworks course.",
-    tech: ["Python", "Web Frameworks"],
-  },
-  {
     title: "TODO-App",
     repoSlug: "TODO-App-November",
     description: "A JavaScript task manager — simple, fast, no framework.",
     tech: ["JavaScript"],
-  },
-  {
-    title: "SoftUni JavaScript",
-    repoSlug: "SoftUniJavaScript",
-    description:
-      "Training applications built throughout the SoftUni JS Front-End course.",
-    tech: ["JavaScript"],
-  },
-  {
-    title: "Order Summary Component",
-    repoSlug: "Order-Summery-Component",
-    description:
-      "Frontend Mentor challenge — a polished order-summary card component.",
-    tech: ["HTML", "CSS"],
-  },
-  {
-    title: "My_EShop",
-    repoSlug: "My_EShop",
-    description: "An e-shop front-end built with plain HTML and CSS.",
-    tech: ["HTML", "CSS"],
   },
 ];
 
@@ -299,6 +296,10 @@ function About() {
             working software.
           </p>
           <p>
+             I studied Software Engineering with Python at SoftUni (2021–2023),
+            and I'm currently doing their AI & LLM Engineering program (2026–present).
+          </p>
+          <p>
             Lately I've been focused on Python backend development and AI-driven systems: building data
             pipelines, integrating APIs, and exploring how LLMs and AI agents (LangChain, LangGraph,
             RAG) can solve real problems.
@@ -403,7 +404,9 @@ function Work() {
                   : "md:right-0 md:w-1/2 md:text-right"
               }`}
             >
-              <p className="font-mono text-sm text-gold">Featured Project</p>
+              <p className="font-mono text-sm text-gold">
+                {p.status ?? "Featured Project"}
+              </p>
               <h3 className="mt-1 text-2xl font-bold text-sand-lightest">
                 {p.title}
               </h3>
@@ -424,21 +427,23 @@ function Work() {
                   i % 2 === 1 ? "" : "md:justify-end"
                 }`}
               >
+                {p.repo && (
+                  <a
+                    href={p.repo}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="text-sand-lightest transition-colors hover:text-gold"
+                    aria-label="GitHub repository"
+                  >
+                    <Github size={20} />
+                  </a>
+                )}
                 <a
-                  href={p.repo}
+                  href={p.live ?? p.repo}
                   target="_blank"
                   rel="noreferrer"
                   className="text-sand-lightest transition-colors hover:text-gold"
-                  aria-label="GitHub repository"
-                >
-                  <Github size={20} />
-                </a>
-                <a
-                  href={p.repo}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="text-sand-lightest transition-colors hover:text-gold"
-                  aria-label="Live demo"
+                  aria-label="Live site"
                 >
                   <ExternalLink size={20} />
                 </a>
@@ -450,7 +455,7 @@ function Work() {
 
       <div className="mt-32">
         <h3 className="text-center text-2xl font-bold text-sand-lightest">
-          Other Noteworthy Projects
+          Other Projects
         </h3>
         <p className="mt-2 text-center font-mono text-sm text-gold">
           straight from my GitHub
@@ -506,7 +511,7 @@ function Contact() {
         href={`mailto:${EMAIL}`}
         className="mt-10 inline-block rounded border border-gold px-8 py-4 font-mono text-sm text-gold transition-colors hover:bg-gold-tint"
       >
-        Say Hello
+        Email Me
       </a>
     </section>
   );
