@@ -6,8 +6,6 @@ import {
   Mail,
   ExternalLink,
   Folder,
-  Star,
-  GitFork,
   Menu,
   X,
   ChevronLeft,
@@ -17,9 +15,9 @@ import {
 
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-import djangoHome from "@/assets/django-home.png.asset.json";
-import djangoCourses from "@/assets/django-courses.png.asset.json";
-import djangoSignedIn from "@/assets/django-signed-in.png.asset.json";
+import djangoHome from "@/assets/django-home.png";
+import djangoCourses from "@/assets/django-courses.png";
+import djangoSignedIn from "@/assets/django-signed-in.png";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -126,9 +124,9 @@ const FEATURED: FeaturedProject[] = [
       "A Django-based LMS platform for instructors to teach and students to learn online — course management, lessons and enrollments end to end.",
     tech: ["Django", "Python", "PostgreSQL"],
     screenshots: [
-      { src: djangoHome.url, label: "Home page" },
-      { src: djangoCourses.url, label: "Course catalog" },
-      { src: djangoSignedIn.url, label: "Course catalog after signing in" },
+      { src: djangoHome, label: "Home page" },
+      { src: djangoCourses, label: "Course catalog" },
+      { src: djangoSignedIn, label: "Course catalog after signing in" },
     ],
   },
   {
