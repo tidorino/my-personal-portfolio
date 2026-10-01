@@ -47,9 +47,9 @@ const NAV = [
 
 const SKILLS = [
   "Python",
-  "TypeScript",
-  "React",
-  "Django",
+  "Django / FastAPI",
+  "PostgreSQL",
+  "LangChain / LangGraph",
   "JavaScript",
   "HTML & CSS",
 ];
@@ -296,15 +296,13 @@ function About() {
         <div className="space-y-4 text-sand">
           <p>
             Hello! I'm Teodora, a developer who enjoys turning ideas into
-            working software. My interest in development started with curiosity
-            about how the web works — and it grew into building real projects,
-            most of which you'll find on my GitHub.
+            working software. That curiosity turned into building things
+            — you'll find most of them on my GitHub.
           </p>
           <p>
-            I care about clean code, good developer experience, and interfaces
-            that feel fast and intuitive. When I'm not coding, I'm probably
-            reading about new tools or refactoring something that already
-            worked.
+            Lately I've been focused on Python backend development and AI-driven systems: building data
+            pipelines, integrating APIs, and exploring how LLMs and AI agents (LangChain, LangGraph,
+            RAG) can solve real problems.
           </p>
           <p>Here are a few technologies I work with:</p>
           <ul className="grid grid-cols-2 gap-2 font-mono text-sm">
